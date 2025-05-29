@@ -67,7 +67,7 @@ function Chat({ messages: initialMessages }) {
       </AppBar>
 
       {/* チャット本体 */}
-      <Box ref={chatRef} sx={{ flex: 1, overflowY: 'auto', p: 2 }}>
+      <Box ref={chatRef} sx={{ flex: 1, overflowY: 'auto', p: 2, whiteSpace: 'pre-line' }}>
         {messages.map(msg => (
           <MessageBubble
             key={msg.id}
