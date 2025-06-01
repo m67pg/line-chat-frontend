@@ -4,6 +4,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import MessageBubble from './MessageBubble';
 import MessageInput from './MessageInput';
+import ChatHeader from './ChatHeader';
 import DateSeparator from './DateSeparator';
 import { postMessage } from '../services/PostMessage';
 import { getMessages } from '../services/messages';
@@ -79,19 +80,7 @@ function Chat({ messages: initialMessages }) {
   return (
     <Box sx={{ height: '100vh', display: 'flex', flexDirection: 'column', backgroundColor: '#E5DDD5' }}>
       {/* ヘッダー */}
-      <AppBar position="static" color="default" elevation={1}>
-        <Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
-          <IconButton edge="start" color="inherit">
-            <ArrowBackIcon />
-          </IconButton>
-          <Typography variant="h6" sx={{ flexGrow: 1, textAlign: 'center' }}>
-            LINE風チャット
-          </Typography>
-          <IconButton edge="end" color="inherit">
-            <MoreVertIcon />
-          </IconButton>
-        </Toolbar>
-      </AppBar>
+      <ChatHeader />
 
       {/* チャット本体 */}
       <Box ref={chatRef} sx={{ flex: 1, overflowY: 'auto', p: 2, whiteSpace: 'pre-line' }}>

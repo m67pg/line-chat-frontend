@@ -6,7 +6,7 @@ function ChatPage() {
   const [messages, setMessages] = useState([]);
 
   useEffect(() => {
-    getMessages().then(setMessages);
+      getMessages().then(setMessages);
   }, []);
 
   return <Chat messages={messages} />;
