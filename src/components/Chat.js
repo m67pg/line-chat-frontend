@@ -1,13 +1,10 @@
-import React, { useState, useRef, useEffect } from 'react';
-import { Box, AppBar, Toolbar, IconButton, Typography } from '@mui/material';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { useState, useRef, useEffect } from 'react';
+import { Box } from '@mui/material';
 import MessageBubble from './MessageBubble';
 import MessageInput from './MessageInput';
 import ChatHeader from './ChatHeader';
 import DateSeparator from './DateSeparator';
 import { postMessage } from '../services/PostMessage';
-import { getMessages } from '../services/messages';
 
 function Chat({ messages: initialMessages }) {
   const [messages, setMessages] = useState(initialMessages);
@@ -25,28 +22,29 @@ function Chat({ messages: initialMessages }) {
 
   const handleSend = async (text) => {
     try {
-      const response = await postMessage(text);
-      setMessages((prev) => [...prev, response.data]);
+      await postMessage(text);
     } catch (error) {
       console.error('送信エラー', error);
     }
   };
-
-  const fetchMessages = async () => {
-    try {
-      await getMessages().then(setMessages);
-    } catch (error) {
-      console.error('受信エラー', error);
-    }
-  };
-
+  
   useEffect(() => {
-    const interval = setInterval(() => {
-      fetchMessages(); // 30秒ごとに取得
-    }, 30000);
+    window.Echo.channel('line-chat')
+      .listen('.message-sent', (e) => {
+        console.log("Message received:", e);
+        setMessages((prevMessages) => {
+          if (e.message) {
+            return [...prevMessages, e.message];
+          }
+          return prevMessages;
+        });
+      });
 
-    return () => clearInterval(interval); // クリーンアップ
-  }, []);
+      return () => {
+        window.Echo.leave('line-chat');
+      };
+    },
+  []);
 
   const chatRef = useRef(null);
   const user_id = Number(localStorage.getItem('user_id'));

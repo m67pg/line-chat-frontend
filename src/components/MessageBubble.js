@@ -15,7 +15,7 @@ function MessageBubble({ text, isMe, timestamp, avatarUrl }) {
   if (isMe) {
     return (
       <Box display="flex" justifyContent="flex-end" mb={1.5} alignItems="flex-start">
-        {/* �A�C�R���Ǝ��Ԃ̏c�{�b�N�X */}
+        {/* アイコンと時間の縦ボックス */}
         <Box
           display="flex"
           flexDirection="column"
@@ -24,16 +24,16 @@ function MessageBubble({ text, isMe, timestamp, avatarUrl }) {
           mr={1}
           sx={{ height: '100%', minHeight: '48px' }}
         >
-          {/* �A�C�R���̓��b�Z�[�W�̏�[�� */}
+          {/* アイコンはメッセージの上端に */}
           <Avatar alt="Me" src={avatarUrl} sx={{ width: 32, height: 32, mb: 0.3 }} />
 
-          {/* ���Ԃ̓��b�Z�[�W�̉��[�ɑ����� */}
+          {/* 時間はメッセージの下端に揃える */}
           <Typography variant="caption" sx={{ color: '#888', fontSize: '0.75rem', mt: 'auto' }}>
             {timeText}
           </Typography>
         </Box>
 
-        {/* ���b�Z�[�W�����o�� */}
+        {/* メッセージ吹き出し */}
         <Paper
           elevation={0}
           sx={{
